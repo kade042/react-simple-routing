@@ -1,42 +1,28 @@
 import React, { Component } from 'react';
-import 'whatwg-fetch';
+import 'babel-polyfill';
 
 export default class RepoDetails extends Component {
-  constructor() {
-    super(...arguments);
-    this.state = {
-      repository: {},
-    };
-  }
+  renderRepository() {
+    let repository = this.props.repositories.find((repo)=>
+      repo.name == this.props.params.repo_name);
 
-  fetchData(repoName) {
-    fetch('https://api.github.com/repos/pro-react/' + repoName)
-    .then((response)=> response.json())
-    .then((responseData)=> {
-      this.setState({
-        repository: responseData,
-      });
-    });
-  }
-
-  componentDidMount() {
-    let repoName = this.props.params.repo_name;
-    this.fetchData(repoName);
-  }
-
-  componentWillReceiveProps(nextProps) {
-    let repoName = nextProps.params.repo_name;
-    this.fetchData(repoName);
+    return (
+      <div>
+        <h2>{repository.name}</h2>
+        <p>{repository.description}</p>
+        <span>{repository.stargazers_count + ' ★' }</span>
+      </div>
+    );
   }
 
   render() {
-    return (
-      <div>
-        <h2>{this.state.repository.name}</h2>
-        <p>{this.state.repository.description}</p>
-        <span>{this.state.repository.stargazers_count + ' ★' }</span>
-      </div>
-    );
+    if (this.props.repositories.length > 0) {
+      return this.renderRepository();
+    } else {
+      return (
+        <h4>Loading...</h4>
+      );
+    }
   }
 
 }
