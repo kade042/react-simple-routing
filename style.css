@@ -13,7 +13,7 @@ menu li {
   padding: 5px;
 }
 
-a:active{
+a.active{
   color: #444;
   font-weight: bold;
   text-decoration: none;
