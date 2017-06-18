@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router';
 import 'whatwg-fetch';
 
 export default class Repos extends Component {
@@ -22,7 +23,7 @@ export default class Repos extends Component {
   render() {
     let repos = this.state.repositories.map((repo)=> (
       <li key={repo.id}>
-        {repo.name}
+        <Link to={'/repos/details/' + repo.name}>{repo.name}</Link>
       </li>
     ));
     return (
@@ -31,6 +32,7 @@ export default class Repos extends Component {
         <ul>
           {repos}
         </ul>
+        {this.props.children}
       </div>
     );
   }
