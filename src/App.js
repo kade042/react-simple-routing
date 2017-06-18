@@ -1,7 +1,7 @@
 
 import React, { Component } from 'react';
 import { render } from 'react-dom';
-import { Router, Route, Link, browserHistory } from 'react-router';
+import { Router, Route, Link, browserHistory, IndexRoute } from 'react-router';
 
 import About from './components/About';
 import Home from './components/Home';
@@ -27,7 +27,8 @@ class App extends Component {
 
 render((
   <Router history={ browserHistory }>
-    <Route path='/' component={ App } >
+    <Route path='/' component={ App} >
+      <IndexRoute component={Home} />
       <Route path='about' component={About} />
       <Route path='repos' component={Repos} />
     </Route>
